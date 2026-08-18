@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>جدول الحصص الأسبوعي - مدرسة أبي بكر الصديق الأساسية للبنين</title>
+  <title>جدول الحصص - مدرسة أبي بكر الصديق الأساسية للبنين</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -85,18 +85,17 @@
   </main>
 
   <script>
-    // توقيت الحصص المعتمد في المدرسة
+    // الحصص بدون أوقات
     const periodTimings = [
-      { p: 1, label: "الحصة الأولى (08:00 - 08:45)" },
-      { p: 2, label: "الحصة الثانية (08:50 - 09:35)" },
-      { p: 3, label: "الحصة الثالثة (09:40 - 10:25)" },
-      { p: 4, label: "الحصة الرابعة (10:45 - 11:30)" },
-      { p: 5, label: "الحصة الخامسة (11:35 - 12:20)" },
-      { p: 6, label: "الحصة السادسة (12:25 - 01:10)" },
-      { p: 7, label: "الحصة السابعة (01:15 - 02:00)" }
+      { p: 1, label: "الحصة الأولى" },
+      { p: 2, label: "الحصة الثانية" },
+      { p: 3, label: "الحصة الثالثة" },
+      { p: 4, label: "الحصة الرابعة" },
+      { p: 5, label: "الحصة الخامسة" },
+      { p: 6, label: "الحصة السادسة" },
+      { p: 7, label: "الحصة السابعة" }
     ];
 
-    // بيانات المعلمين الـ 27
     const teachersData = {
       "علي الشديفات": {
         total: 24, subjects: "العلوم", sections: "4أ، 4ب، 5أ، 5ب، 5ج، 6أ، 6ب، 6ج",
@@ -372,7 +371,7 @@
 
     const daysOrder = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس"];
 
-    // تعبئة القائمة المنسدلة
+    // Populate Select Dropdown
     const selectElem = document.getElementById('teacherSelect');
     Object.keys(teachersData).sort().forEach(name => {
       const opt = document.createElement('option');
@@ -381,7 +380,7 @@
       selectElem.appendChild(opt);
     });
 
-    // استعادة الاسم المثبت
+    // Load saved teacher
     window.addEventListener('DOMContentLoaded', () => {
       const savedName = localStorage.getItem('savedTeacherName');
       if (savedName && teachersData[savedName]) {
@@ -463,9 +462,7 @@
             dayCount++;
             periodsHtml += `
               <div class="flex items-center justify-between p-3 rounded-xl bg-blue-50/80 border border-blue-200">
-                <div>
-                  <span class="text-xs font-black text-blue-900 bg-blue-200/70 px-2 py-0.5 rounded-md block mb-0.5">${timing.label}</span>
-                </div>
+                <span class="text-xs font-black text-blue-900 bg-blue-200/70 px-2 py-0.5 rounded-md">${timing.label}</span>
                 <span class="text-sm font-extrabold text-slate-800">${lesson}</span>
               </div>
             `;
