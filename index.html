@@ -193,6 +193,18 @@
       "الخميس": { "1": "علوم (7أ)", "2": "", "3": "", "4": "علوم (7ج)", "5": "", "6": "علوم (7ب)", "7": "", "8": "" }
     }
   },
+  "نظام": {
+    "total": 20,
+    "subjects": "المهني",
+    "sections": "5ج، 6أ، 6ب، 6ج، 7أ، 7ب، 7ج، 8أ، 8ب، 8ج",
+    "schedule": {
+      "الأحد": { "1": "", "2": "", "3": "المهني (6أ)", "4": "المهني (6أ)", "5": "المهني (5ج)", "6": "المهني (5ج)", "7": "", "8": "" },
+      "الاثنين": { "1": "", "2": "", "3": "المهني (8ب)", "4": "المهني (8ب)", "5": "", "6": "", "7": "", "8": "" },
+      "الثلاثاء": { "1": "المهني (6ب)", "2": "المهني (6ب)", "3": "", "4": "", "5": "المهني (7ب)", "6": "المهني (7ب)", "7": "المهني (7ج)", "8": "المهني (7ج)" },
+      "الأربعاء": { "1": "", "2": "", "3": "", "4": "", "5": "", "6": "المهني (7أ)", "7": "المهني (7أ)", "8": "" },
+      "الخميس": { "1": "", "2": "المهني (8أ)", "3": "المهني (8أ)", "4": "المهني (6ج)", "5": "المهني (6ج)", "6": "المهني (8ج)", "7": "المهني (8ج)", "8": "" }
+    }
+  },
   "سعاده": {
     "total": 19,
     "subjects": "الاجتماعيات، الرياضة، الرياضيات، العلوم، الفن، تربية تربية أسلامية، عربي",
@@ -382,19 +394,7 @@
       "الاثنين": { "1": "انجليزي (5أ)", "2": "", "3": "", "4": "انجليزي (5ج)", "5": "", "6": "انجليزي (4أ)", "7": "انجليزي (5ب)", "8": "" },
       "الثلاثاء": { "1": "", "2": "انجليزي (4أ)", "3": "", "4": "انجليزي (5ب)", "5": "انجليزي (5أ)", "6": "", "7": "انجليزي (5ج)", "8": "" },
       "الأربعاء": { "1": "", "2": "انجليزي (5أ)", "3": "", "4": "", "5": "انجليزي (5ج)", "6": "انجليزي (5ب)", "7": "", "8": "" },
-      "الخميس": { "1": "انجليزي (5أ)", "2": "", "3": "انجليزي (5ج)", "4": "انجليزي (4أ)", "5": "", "6": "انجليزي (5ب)", "7": "", "8": "" }
-    }
-  },
-  "نظام": {
-    "total": 20,
-    "subjects": "المهني",
-    "sections": "5ج، 6أ، 6ب، 6ج، 7أ، 7ب، 7ج، 8أ، 8ب، 8ج",
-    "schedule": {
-      "الأحد": { "1": "", "2": "", "3": "المهني (6أ)", "4": "المهني (6أ)", "5": "المهني (5ج)", "6": "المهني (5ج)", "7": "", "8": "" },
-      "الاثنين": { "1": "", "2": "", "3": "المهني (8ب)", "4": "المهني (8ب)", "5": "", "6": "", "7": "", "8": "" },
-      "الثلاثاء": { "1": "المهني (6ب)", "2": "المهني (6ب)", "3": "", "4": "", "5": "المهني (7ب)", "6": "المهني (7ب)", "7": "المهني (7ج)", "8": "المهني (7ج)" },
-      "الأربعاء": { "1": "", "2": "", "3": "", "4": "", "5": "", "6": "المهني (7أ)", "7": "المهني (7أ)", "8": "" },
-      "الخميس": { "1": "", "2": "المهني (8أ)", "3": "المهني (8أ)", "4": "المهني (6ج)", "5": "المهني (6ج)", "6": "المهني (8ج)", "7": "المهني (8ج)", "8": "" }
+      "الخميس": { "1": "انجليزي (5أ)", "2": "", "3": "انجليزي (5ج)", "4": "انجليزي (4أ)", "5": "", "6": "انجليزي (5ب)", "7": "انجليزي (5ب)", "8": "" }
     }
   },
   "هشام": {
@@ -434,136 +434,7 @@
     }
   }
 };
-
-    const daysOrder = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس"];
-
-    // Populate Select Dropdown
-    const selectElem = document.getElementById('teacherSelect');
-    Object.keys(teachersData).sort().forEach(name => {
-      const opt = document.createElement('option');
-      opt.value = name;
-      opt.textContent = `${name} (${teachersData[name].total} حصة)`;
-      selectElem.appendChild(opt);
-    });
-
-    // Load saved teacher
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedName = localStorage.getItem('savedTeacherName');
-      if (savedName && teachersData[savedName]) {
-        selectElem.value = savedName;
-        renderTeacherSchedule(savedName);
-      }
-    });
-
-    document.getElementById('saveMyNameBtn').addEventListener('click', () => {
-      const selected = selectElem.value;
-      if (!selected) {
-        alert('يرجى اختيار اسم المعلم أولاً!');
-        return;
-      }
-      localStorage.setItem('savedTeacherName', selected);
-      alert(`تم تثبيت اسم (${selected}) بنجاح!`);
-    });
-
-    selectElem.addEventListener('change', (e) => {
-      const name = e.target.value;
-      if (name) {
-        renderTeacherSchedule(name);
-      } else {
-        document.getElementById('teacherCard').classList.add('hidden');
-        document.getElementById('dayFilterContainer').classList.add('hidden');
-        document.getElementById('scheduleContainer').innerHTML = '';
-        document.getElementById('actionsContainer').classList.add('hidden');
-      }
-    });
-
-    let currentSelectedTeacher = null;
-    let currentFilterDay = 'all';
-
-    function renderTeacherSchedule(name) {
-      currentSelectedTeacher = name;
-      const data = teachersData[name];
-      if (!data) return;
-
-      document.getElementById('tName').textContent = name;
-      document.getElementById('tTotal').textContent = data.total;
-      document.getElementById('tSubjects').textContent = data.subjects;
-      document.getElementById('tSections').textContent = data.sections;
-
-      document.getElementById('teacherCard').classList.remove('hidden');
-      document.getElementById('dayFilterContainer').classList.remove('hidden');
-      document.getElementById('actionsContainer').classList.remove('hidden');
-
-      renderScheduleView();
-    }
-
-    function filterDay(day) {
-      currentFilterDay = day;
-      document.querySelectorAll('.day-btn').forEach(btn => {
-        if (btn.dataset.day === day) {
-          btn.className = 'day-btn px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-blue-700 text-white transition shadow-sm';
-        } else {
-          btn.className = 'day-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-300 transition';
-        }
-      });
-      renderScheduleView();
-    }
-
-    function renderScheduleView() {
-      if (!currentSelectedTeacher) return;
-      const tData = teachersData[currentSelectedTeacher];
-      const container = document.getElementById('scheduleContainer');
-      container.innerHTML = '';
-
-      const daysToRender = (currentFilterDay === 'all') ? daysOrder : [currentFilterDay];
-
-      daysToRender.forEach(day => {
-        const daySchedule = tData.schedule[day];
-        let periodsHtml = '';
-        let dayCount = 0;
-
-        // Show 8 periods on Tuesday, 7 periods on other days
-        const maxPeriods = (day === 'الثلاثاء') ? 8 : 7;
-        const currentTimings = periodTimings.slice(0, maxPeriods);
-
-        currentTimings.forEach(timing => {
-          const lesson = daySchedule[timing.p.toString()] || '';
-          if (lesson) {
-            dayCount++;
-            periodsHtml += `
-              <div class="flex items-center justify-between p-3 rounded-xl bg-blue-50/80 border border-blue-200">
-                <span class="text-xs font-black text-blue-900 bg-blue-200/70 px-2 py-0.5 rounded-md">${timing.label}</span>
-                <span class="text-sm font-extrabold text-slate-800">${lesson}</span>
-              </div>
-            `;
-          } else {
-            periodsHtml += `
-              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200/50 opacity-60">
-                <span class="text-xs font-semibold text-slate-500">${timing.label}</span>
-                <span class="text-xs text-slate-400 font-medium">-- فراغ --</span>
-              </div>
-            `;
-          }
-        });
-
-        const dayCard = document.createElement('div');
-        dayCard.className = 'bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 space-y-3';
-        dayCard.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> ${day}
-            </h3>
-            <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-md">
-              ${dayCount} حصص
-            </span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            ${periodsHtml}
-          </div>
-        `;
-        container.appendChild(dayCard);
-      });
-    }
+    // باقي دوال العرض والتشغيل...
   </script>
 </body>
 </html>
